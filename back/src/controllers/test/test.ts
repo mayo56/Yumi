@@ -1,10 +1,10 @@
-import express from "express";
+import { endpoint } from "../../types/types";
 
 export default  {
-    name: "",
-    link: ["test"],
+    link: ["name", ":name"],
     method: "get",
-    exec: (req: express.Request, res: express.Response) => {
-        res.send("Bonjour !")
+    exec: (req, res) => {
+        console.log(req.params)
+        res.send(`Bonjour ${req.params.name} !`)
     }
-}
+} as endpoint;
