@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mayo56/yumi#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
