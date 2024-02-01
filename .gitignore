@@ -5,3 +5,4 @@
 
 # Chemins pour l'api
 /back/config/.env
+/back/database/*

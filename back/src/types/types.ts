@@ -18,7 +18,7 @@ export type endpoint = {
             res: express.Response,
             next?: express.NextFunction
         },
-        args: any
+        args: any[]
     ): void,
 };
 
@@ -32,7 +32,7 @@ export type middleware = {
             res: express.Response,
             next: express.NextFunction
         },
-        args: any
+        args: any[]
     ): void
 };
 

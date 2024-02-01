@@ -5,14 +5,18 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import { readdirSync } from "node:fs";
 import { endpoint } from "./types/types";
-import middleware from "./middleware/middleware";
+import middleware from "./tools/middleware";
+import { db_initialize } from "./tools/db";
 // ##########################
 
 // SERVER CONFIG
 const server = express();
-server.use(cors());
+server.use(cors({ "origin": "*" }));
 server.use(express.json());
 dotenv.config({ path: `${__dirname}/config/.env` });
+
+// Initialize database
+db_initialize();
 // ==========================
 
 // ==============================
@@ -40,60 +44,68 @@ for (const cat of categories) {
 // ===========================
 // ENDPOINT EXECUTION
 for (const end of endpoints) {
-    const args = []
+    const args: any[] = []
     switch (end.method) {
         case "get":
             server.get(
                 `/${end.link.join("/")}`,
-                // (req, res, next()) => middleware({}, args),
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "delete":
             server.delete(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "conntect":
             server.connect(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "head":
             server.head(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "options":
             server.options(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "patch":
             server.proppatch(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "post":
             server.post(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "put":
             server.put(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
         case "trace":
             server.trace(
                 `/${end.link.join("/")}`,
+                (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)
             );
             break;
