@@ -4,5 +4,5 @@
 
 
 # Chemins pour l'api
-/back/config/.env
-/back/database/*
+/back/src/config/.env
+/back/src/database/*

@@ -19,7 +19,7 @@ export type endpoint = {
             next?: express.NextFunction
         },
         args: any[]
-    ): void,
+    ): express.Response,
 };
 
 /**

@@ -6,7 +6,6 @@ export default {
     method: "get",
     middleware: true,
     exec: (request, args) => {
-        console.log(db_request("select * from users;"))
-        request.res.send(`Bonjour ${request.req.params.name} !`);
+        request.res.send(`${db_request("select * from bcrypt;")}`);
     }
 } as endpoint;
