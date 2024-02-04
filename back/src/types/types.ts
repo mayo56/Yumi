@@ -36,3 +36,10 @@ export type middleware = {
     ): void
 };
 
+/**
+ * Type body authentification
+ */
+export type authBody = {
+    username: string,
+    password: string,
+};

@@ -1,18 +1,18 @@
-import { db } from "../../tools/db";
-import { endpoint } from "../../types/types";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { authBody, endpoint } from "../../types/types";
 import gen_uid from "generate-unique-id";
+import { db } from "../../tools/db";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export default {
     link: ["auth", "register"],
     method: "post",
     exec(request, args) {
-        const body = request.req.body as { username: string, password: string };
+        const body = request.req.body as authBody;
 
         // Vérifications 
         if (!body.username || !body.password)
-            return request.res.status(409).send({ error: 1001, message: "JSON Body Not Complete" });
+            return request.res.status(409).send({ error: 1101, message: "JSON Body Not Complete" });
 
         // Username virifications
         db().then(async (database) => {
@@ -22,7 +22,6 @@ export default {
                 return request.res.status(409).send({ error: 1002, message: "Username Already Exists" });
 
             // Vérification mot de passe
-            
             if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W])[^\s]{8,}$/g).test(body.password)) {
                 return request.res.status(409).send({
                     error: 1003,
@@ -35,7 +34,7 @@ export default {
                 useLetters: false,
                 useNumbers: true
             });
-            
+
             // Encrypt password and send in db
             const hash = bcrypt.hashSync(body.password, bcrypt.genSaltSync(10));
             database.run("INSERT INTO users (uid, username, password) VALUES (?,?,?);", [uid, body.username, hash])
