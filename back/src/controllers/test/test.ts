@@ -1,4 +1,4 @@
-import { db_request } from "../../tools/db";
+import { db } from "../../tools/db";
 import { endpoint } from "../../types/types";
 
 export default {
@@ -6,6 +6,8 @@ export default {
     method: "get",
     middleware: true,
     exec: (request, args) => {
-        request.res.send(`${db_request("select * from bcrypt;")}`);
+        db().then(database => {
+            request.res.send(`${database.all("select * from bcrypt;")}`);
+        })
     }
 } as endpoint;
