@@ -21,6 +21,7 @@ export default {
 
         db().then(async (database) => {
             const user = await database.all("SELECT * FROM users WHERE username = ?;", [body.username]);
+
             if (user.length === 0) {
                 // Utilisateur inconnue
                 return request.res.status(401).send(
@@ -37,6 +38,8 @@ export default {
                         uid: user[0].uid,
                         password: user[0].password
                     }, process.env.JWT_SECRET!);
+                    
+                    // Envoi du Token si tout est bon
                     request.res.status(200).send(
                         {
                             error: null,
@@ -44,6 +47,7 @@ export default {
                         }
                     );
                 } else {
+                    // Mot de passe incorrect
                     return request.res.status(401).send(
                         {
                             error: 1102,

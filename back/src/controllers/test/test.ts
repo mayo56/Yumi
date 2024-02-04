@@ -6,8 +6,6 @@ export default {
     method: "get",
     middleware: true,
     exec: (request, args) => {
-        db().then(database => {
-            request.res.send(`${database.all("select * from bcrypt;")}`);
-        })
+        request.res.send("Oui !")
     }
 } as endpoint;

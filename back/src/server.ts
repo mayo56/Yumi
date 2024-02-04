@@ -33,10 +33,12 @@ const categories = readdirSync(`${__dirname}/controllers`, { withFileTypes: true
 for (const cat of categories) {
     const endpoints_cache = readdirSync(`${__dirname}/controllers/${cat.name}`, { withFileTypes: true })
         .filter(file => file.isFile() && (file.name.endsWith(".js") || file.name.endsWith(".ts")));
-
+        
+    console.log(`\x1b[1m(_/\\_) Charment: ${cat.name} (_/\\_)\x1b[0m`);
     for (const file of endpoints_cache) {
         const endpoint = require(`${__dirname}/controllers/${cat.name}/${file.name}`).default;
         endpoints.push(endpoint);
+        console.log(`=> \x1b[4m${file.name}\x1b[0m chargé.`);
     };
 };
 // ==============================
@@ -82,7 +84,7 @@ for (const end of endpoints) {
             );
             break;
         case "patch":
-            server.proppatch(
+            server.patch(
                 `/${end.link.join("/")}`,
                 (req, res, next) => end.middleware ? middleware.exec({req, res, next}, args) : next(),
                 (req, res, next) => end.exec({req, res, next}, args)

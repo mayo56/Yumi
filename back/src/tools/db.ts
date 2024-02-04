@@ -11,6 +11,6 @@ export async function db() {
 export const db_initialize = () => {
     db().then(async (database) => {
         // await database.run("DROP TABLE users;")
-        await database.run("CREATE TABLE IF NOT EXISTS users (uid UNIQUEIDENTIFER PRIMARY KEY, username TEXT, password TEXT);");
+        await database.run("CREATE TABLE IF NOT EXISTS users (uid TEXT UNIQUEIDENTIFER PRIMARY KEY, username TEXT, password TEXT);");
     }).catch(err => console.log(err));
 };

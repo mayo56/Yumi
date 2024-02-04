@@ -43,3 +43,20 @@ export type authBody = {
     username: string,
     password: string,
 };
+
+/**
+ * Type body change password
+ */
+export type authBodyChangePassword = {
+    oldPassword: string,
+    newPassword: string
+};
+
+/**
+ * Type body contenu dans un token utilisateur
+ */
+export type authTokenBody = {
+    username: string,
+    uid: string,
+    password: string
+};
