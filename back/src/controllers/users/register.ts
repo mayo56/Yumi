@@ -1,4 +1,4 @@
-import { authBody, endpoint } from "../../types/types";
+import { authBodyRegister, endpoint } from "../../types/types";
 import gen_uid from "generate-unique-id";
 import { db } from "../../tools/db";
 import jwt from "jsonwebtoken";
@@ -8,10 +8,10 @@ export default {
     link: ["auth", "register"],
     method: "post",
     exec(request, args) {
-        const body = request.req.body as authBody;
+        const body = request.req.body as authBodyRegister;
 
         // Vérifications 
-        if (!body.username || !body.password)
+        if (!body.username || !body.password || !body.email || !body.pseudo)
             return request.res.status(409).send({ error: 1101, message: "JSON Body Not Complete" });
 
         // Username virifications

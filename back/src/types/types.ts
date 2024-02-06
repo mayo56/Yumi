@@ -37,12 +37,23 @@ export type middleware = {
 };
 
 /**
- * Type body authentification
+ * Type body authentification (login)
  */
 export type authBody = {
     username: string,
     password: string,
 };
+
+/**
+ * Type body authentification (register)
+ */
+export type authBodyRegister = {
+    pseudo: string,
+    username: string,
+    email:string,
+    password: string,
+};
+
 
 /**
  * Type body change password
