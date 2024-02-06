@@ -1,34 +1,18 @@
 import React from 'react';
+import "./debugger.css"
 
-const Debugger = (props: { json: string }) => {
+const Debugger = (props: { debug: [string, string][] }) => {
 
-    const [debug, setDebug] = React.useState<any[]>([])
-    const [test, setTest] = React.useState(JSON.parse(props.json))
-
-    const instance = () => {
-        if (!props.json) return;
-        const json = JSON.parse(props.json);
-        const oui: any[] = []
-        for (const lol in json) {
-            oui.push([lol, json[lol]])
-        }
-        setDebug((deb) => [...deb, [oui]]);
-    }
-
-    React.useEffect(() => {
-        instance();
-    }, [props.json]);
+    console.log(props)
 
     return (
-        <div className=''>
+        <div className='debugContainer'>
             <p>DEBUG</p>
             <div>
                 {
-                    debug.map((value) => {
+                    props.debug.map(values => {
                         return (
-                            <div>
-                                <p>{value[0]}: {value[1]}</p>
-                            </div>
+                            <p>{values[0]}: {values[1]}</p>
                         )
                     })
                 }

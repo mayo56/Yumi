@@ -1,0 +1,11 @@
+
+.debugContainer {
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 10vw;
+
+    position: absolute;
+    background-color: #101010;
+    right: 10vw;
+}

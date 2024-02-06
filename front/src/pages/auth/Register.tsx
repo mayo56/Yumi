@@ -9,6 +9,8 @@ const Register = () => {
     const [id, setId] = React.useState<string>("");
     const [pwd, setPassword] = React.useState<string>("");
     const [error, setError] = React.useState<string>("");
+    
+    const [debug, setDebug] = React.useState<Array<[string, string]>>([["id", id], ["pwd", pwd], ["error", error]]);
 
     const send = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,6 +34,11 @@ const Register = () => {
         })
     }
 
+    React.useEffect(() => {
+        setDebug([["id", id], ["pwd", pwd], ["error", error]])
+        console.log(debug)
+    }, [id, error, pwd])
+
     return (
         <div>
             <NavLink to={"/login"}>Yo</NavLink>
@@ -54,7 +61,7 @@ const Register = () => {
                 <p>err: {error}</p>
             </div> */}
 
-            <Debugger json={`{"id":"${id}","pwd":"${pwd}", "err":"${error}"}`} />
+            <Debugger debug={debug} />
         </div>
     )
 }

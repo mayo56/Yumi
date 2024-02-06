@@ -34,6 +34,13 @@ const Login = () => {
         })
     }
 
+    const [debug, setDebug] = React.useState<Array<[string, string]>>([["id", id], ["pwd", password], ["error", error]]);
+
+    React.useEffect(() => {
+        setDebug([["id", id], ["pwd", password], ["error", error]])
+        console.log(debug)
+    }, [id, error, password])
+
     return (
         <div>
             <NavLink to={"/register"}>yo</NavLink>
@@ -49,14 +56,7 @@ const Login = () => {
                 </form>
             </div>
 
-            {/* <div>
-                <p>debug</p>
-                <p>id: {id}</p>
-                <p>pwd: {password}</p>
-                <p>err: {error}</p>
-            </div> */}
-
-            <Debugger json={`{"id":"${id}","pwd":"${password}", "err":"${error}"}`}/>
+            <Debugger debug={debug} />
         </div>
     );
 };
