@@ -10,7 +10,9 @@ Permet de s'inscire sur la base de donnée.
 ```json
 {
     "username": "...",
-    "password": "..."
+    "password": "...",
+    "pseudo": "...",
+    "email": "..."
 }
 ```
 
@@ -20,6 +22,7 @@ Permet de s'inscire sur la base de donnée.
 | `409` | `1001` | **JSON Body Not Complete** | Ne contient pas toutes les informations necessaire. |
 | `409` | `1002` | **Username Already Exists** | Le nom d'utilisateur choisit existe déjà. Trouvez-en un autre. |
 | `409` | `1003` | **Password Not Secure** | Le mot de passe n'est pas assez sécurisé. (1) |
+| `409` | `1004` | **Invalid Email** | L'adresse e-mail transmit n'est pas valide |
 | `500` | `500` | **Internal Server Error** | Problème interne au serveur, aucune solution possible hors interventions. |
 
 # Status de réponse (correct)
