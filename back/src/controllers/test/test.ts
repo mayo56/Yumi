@@ -1,4 +1,3 @@
-import { db } from "../../tools/db";
 import { endpoint } from "../../types/types";
 
 export default {

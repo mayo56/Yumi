@@ -19,7 +19,7 @@ export type endpoint = {
             next?: express.NextFunction
         },
         args: any[]
-    ): express.Response,
+    ): Promise<express.Response>,
 };
 
 /**
@@ -70,4 +70,16 @@ export type authTokenBody = {
     username: string,
     uid: string,
     password: string
+};
+
+
+/**
+ * Types USERS database
+ */
+export type Users = {
+    uid: string,
+    username: string,
+    pseudo: string,
+    password: string, 
+    email: string
 };

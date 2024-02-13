@@ -1,27 +1,35 @@
-import { open } from "sqlite";
-import sqlite from "sqlite3";
+import knex from "knex";
 
-export async function db() {
-    return await open({
+export const database = knex({
+    client: "sqlite3",
+    connection: {
         filename: `${__dirname}/../database/database.db`,
-        driver: sqlite.Database
+    },
+    useNullAsDefault: true
+});
+
+export const db_initialize = async () => {
+    /**
+     * Base de donnée utilisateurs
+     */
+    // await database.schema.dropTableIfExists("users")
+    database.schema.hasTable('users').then((exists) => {
+        if (!exists) return database.schema.createTableIfNotExists('users', (table) => {
+            table.text('uid').unique().primary();
+            table.text('username');
+            table.text('pseudo')
+            table.text('password');
+            table.string('email', 320);
+        });
     });
-};
 
-export const db_initialize = () => {
-    db().then(async (database) => {
-
-        /**
-         * Base de donnée utilisateurs
-         */
-        // await database.run("DROP TABLE users;")
-        await database.run(`
-        CREATE TABLE IF NOT EXISTS users (
-            uid TEXT UNIQUEIDENTIFER PRIMARY KEY,
-            username TEXT,
-            pseudo TEXT,
-            password TEXT,
-            email VARCHAR(320)
-        );`);
-    }).catch(err => console.log(err));
+    /**
+     * Table jeux
+     */
+    // await database.schema.dropTableIfExists('games');
+    // database.schema.hasTable('users').then((exists) => {
+    //     if (!exists) return database.schema.createTable('games', (table) => {
+    //         table.enum('lol', []);
+    //     });
+    // });
 };
